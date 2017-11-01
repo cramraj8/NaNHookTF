@@ -12,7 +12,7 @@ x, y = load_data(file_path)
 loss = ...
 optimizer = ...
 
-hooks = [NanTensorHook_Ram_Created(loss, fail_on_nan_loss=True)]
+hooks = [nanhook(loss, fail_on_nan_loss=True)]
 with tf.train.MonitoredTrainingSession(hooks=hooks) as sess:
     for epoch in range(epochs):
         pass
@@ -21,12 +21,12 @@ with tf.train.MonitoredTrainingSession(hooks=hooks) as sess:
 1. First we override the class NaNTensorHook(). 
 2. Use the statement to import the class into the current script.
 ```python 
-from NanTensorHookCustom import NanTensorHookCustom as nanhook
+    from NanTensorHookCustom import NanTensorHookCustom as nanhook
 ```
 3. Provide our need of actions under the after_run(self, run_context, run_values): function.
 4. Create the instance of the custom class and provide arguments(loss, fail_on_nan_loss).
 5. Use MonitoredTrainingSession instead of regular tf.Session.
 6. Pass our NaN hook as an argument.
 
-** That's all what we need to do. **
+**That's all what we need to do.**
 
