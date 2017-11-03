@@ -237,20 +237,6 @@ class NanLossHook(tf.train.SessionRunHook):
                 run_context.request_stop()
 
 
-# class hey(tf.train.MonitoredSession):
-
-#     def __init__(self):
-#         """Initializes a `NanTensorHook`.
-#         Args:
-#           loss_tensor: `Tensor`, the loss tensor.
-#           fail_on_nan_loss: `bool`, whether to raise exception when loss is NaN.
-#         """
-#         pass
-
-#     def finalize(self):
-#         print('hey ! I interrupted')
-
-
 def main(args):
     """The function for TF-Slim DNN model training.
     This function receives user-given parameters as gflag arguments. Then it

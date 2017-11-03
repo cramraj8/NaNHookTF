@@ -1,5 +1,5 @@
 
-"""
+r"""
 My simplest raw TF code for training a network and saving ckpt files.
 All written in raw TF; except model architecture, which is in tf/slim.
 No visual plot codes.
@@ -141,19 +141,18 @@ with tf.Graph().as_default() as graph:
 
 # ********************** LOSS && OPTIMIZE *************************************
     loss = tf.reduce_sum(tf.square(tf.transpose(pred) - y), name="loss") / (2 * total_observations)
-    # tf.train.NanTensorHook(loss, fail_on_nan_loss=True)
     optimizer = tf.train.AdamOptimizer(learning_rate=LEARNING_RATE).minimize(loss, global_step=global_step)
 
-# ******************************************************************************
+
 # ******************************************************************************
     # Launch the graph
     hooks = [NanTensorHook_Ram_Created(loss, fail_on_nan_loss=True)]
 
     with tf.train.MonitoredTrainingSession(hooks=hooks) as sess:
-        # with tf.Session() as sess:
+        # tf.global_variables_initializer fails the MoniteredSession()
         # sess.run(tf.global_variables_initializer())
 
-        # Create a saver object which will save all the variables
+        # Saver fails the MoniteredSession()
         # saver = tf.train.Saver()
 
         for epoch in range(TRAINING_EPOCHS + 1):
@@ -167,7 +166,6 @@ with tf.Graph().as_default() as graph:
                                                       pred],
                                                      feed_dict={x: batch_x,
                                                                 y: batch_y})
-                # tf.train.NanTensorHook(loss, fail_on_nan_loss=True)
                 # Run optimization (backprop) and cost op (to get loss value)
                 avg_cost += batch_cost / total_batch   # Compute average loss
 
