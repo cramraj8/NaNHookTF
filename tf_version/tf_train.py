@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# @author='Ramraj'
+
 
 r"""
 My simplest raw TF code for training a network and saving ckpt files.
